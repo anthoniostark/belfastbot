@@ -4,16 +4,16 @@
 #define platform "netcoreapp2.1"
 
 [Setup]
-AppName=NadekoBot
+AppName=Katz
 AppVersion={#version}
 AppPublisher=Kwoth
-DefaultDirName={pf}\NadekoBot
-DefaultGroupName=NadekoBot
+DefaultDirName={pf}\Katz
+DefaultGroupName=Katz
 UninstallDisplayIcon={app}\{#sysfolder}\nadeko_icon.ico
 Compression=lzma2
 SolidCompression=yes
-OutputDir=userdocs:projekti/NadekoInstallerOutput
-OutputBaseFilename=NadekoBot-setup-{#version}
+OutputDir=userdocs:projekti/KatzInstallerOutput
+OutputBaseFilename=Katz-setup-{#version}
 AppReadmeFile=http://nadekobot.readthedocs.io/en/latest/Commands%20List/
 ArchitecturesInstallIn64BitMode=x64
 UsePreviousSetupType=no
@@ -26,13 +26,9 @@ Source: "src\NadekoBot\bin\Release\{#platform}\{#target}\publish\data\command_st
 ;rename credentials example to credentials, but don't overwrite if it exists
 ;Source: "src\NadekoBot\bin\Release\{#platform}\{#target}\publish\credentials_example.json"; DestName: "credentials.json"; DestDir: "{app}\{#sysfolder}"; Permissions: users-full; Flags: skipifsourcedoesntexist onlyifdoesntexist;
 
-;reinstall - i want to copy all files, but i don't want to overwrite any data files because users will lose their customization if they don't have a backup, 
-;            and i don't want them to have to backup and then copy-merge into data folder themselves, or lose their currency images due to overwrite.
+;reinstall
 Source: "src\NadekoBot\bin\Release\{#platform}\{#target}\publish\*"; DestDir: "{app}\{#sysfolder}"; Permissions: users-full; Flags: recursesubdirs ignoreversion onlyifdestfileexists createallsubdirs; Excludes: "*.pdb, *.db, data\*, credentials.json";
 Source: "src\NadekoBot\bin\Release\{#platform}\{#target}\publish\data\*"; DestDir: "{app}\{#sysfolder}\data"; Permissions: users-full; Flags: recursesubdirs onlyifdoesntexist createallsubdirs;
-
-;readme   
-;Source: "readme"; DestDir: "{app}"; Flags: isreadme
 
 [Dirs]
 Name:"{app}\{#sysfolder}\data"; Permissions: everyone-modify
@@ -44,12 +40,12 @@ Filename: "{app}\{#sysfolder}\credentials.json"; Flags: postinstall shellexec ru
 
 [Icons]
 ; for pretty install directory
-Name: "{app}\NadekoBot"; Filename: "{app}\{#sysfolder}\NadekoBot.exe"; IconFilename: "{app}\{#sysfolder}\nadeko_icon.ico"
+Name: "{app}\Katz"; Filename: "{app}\{#sysfolder}\NadekoBot.exe"; IconFilename: "{app}\{#sysfolder}\nadeko_icon.ico"
 Name: "{app}\credentials"; Filename: "{app}\{#sysfolder}\credentials.json" 
 Name: "{app}\data"; Filename: "{app}\{#sysfolder}\data" 
 
 ; desktop shortcut 
-Name: "{commondesktop}\NadekoBot"; Filename: "{app}\NadekoBot"; Tasks: desktopicon
+Name: "{commondesktop}\Katz"; Filename: "{app}\Katz"; Tasks: desktopicon
 ; desktop icon checkbox
 [Tasks]
 Name: desktopicon; Description: "Create a &desktop shortcut";
@@ -62,15 +58,15 @@ Root: "HKLM"; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 Root: "HKCU"; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; \
     ValueType: String; ValueName: "{app}\{#sysfolder}\NadekoBot.exe"; ValueData: "RUNASADMIN"; \
     Flags: uninsdeletekeyifempty uninsdeletevalue;
-Root: "HKLM"; Subkey: "SOFTWARE\NadekoBot"; \
+Root: "HKLM"; Subkey: "SOFTWARE\Katz"; \
     ValueType: String; ValueName: "InstallPath"; ValueData: "{app}\{#sysfolder}"; \
     Flags: deletevalue uninsdeletekeyifempty uninsdeletevalue;
-Root: "HKLM"; Subkey: "SOFTWARE\NadekoBot"; \
+Root: "HKLM"; Subkey: "SOFTWARE\Katz"; \
     ValueType: String; ValueName: "Version"; ValueData: "{#version}"; \
     Flags: deletevalue uninsdeletekeyifempty uninsdeletevalue;
 
 [Messages]
-WelcomeLabel2=IMPORTANT! READ BELOW!%n%nIt is recommended that you CLOSE any ANTI VIRUS before continuing.%n%nYou can only update v1.4 or newer.%n%nDo not select your old NadekoBot folder as an install path if it's not 1.4 or newer.
+WelcomeLabel2=IMPORTANT! READ BELOW!%n%nIt is recommended that you CLOSE any ANTI VIRUS before continuing.%n%nYou can only update v1.4 or newer.%n%nDo not select your old Katz folder as an install path if it's not 1.4 or newer.
 
 ;ask the user if they want to delete all settings
 [Code]
@@ -82,7 +78,7 @@ begin
   begin
     X := ExpandConstant('{app}');
     if FileExists(X + '\{#sysfolder}\data\NadekoBot.db') then begin
-      if MsgBox('Do you want to delete all settings associated with this bot?', mbConfirmation, MB_YESNO) = IDYES then begin
+      if MsgBox('Do you want to delete all settings associated with Katz?', mbConfirmation, MB_YESNO) = IDYES then begin
         DelTree(X + '\{#sysfolder}', True, True, True);
       end
     end else begin

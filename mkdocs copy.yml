@@ -1,5 +1,5 @@
-site_name: NadekoBot
-repo_url: https://github.com/Kwoth/NadekoBot
+site_name: Katz
+repo_url: https://github.com/anthoniostark/belfastbot
 pages:
 - Home: index.md
 - About: about.md
@@ -20,6 +20,5 @@ pages:
     - Bot Config: Bce Guide.md
 - Frequently Asked Questions: Frequently Asked Questions.md
 - Contribution Guide: Contribution Guide.md
-- ❤ Donate ❤: Donate.md
 
 theme: readthedocs

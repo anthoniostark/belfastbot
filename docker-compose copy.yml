@@ -1,8 +1,8 @@
 version: "3.5"
 services:
-  nadeko:
+  katz:
     build: .
-    #image: kwoth/nadeko
+    #image: katz/discord
     restart: unless-stopped
     depends_on:
       - redis
@@ -10,7 +10,7 @@ services:
       - ./credentials.json:/app/credentials.json:ro
       - ./data:/app/data
     environment:
-      NadekoBot_RedisOptions: redis,name=nadeko
+      NadekoBot_RedisOptions: redis,name=katz
       NadekoBot_ShardRunCommand: dotnet
       NadekoBot_ShardRunArguments: NadekoBot.dll {0} {1}
     labels:
